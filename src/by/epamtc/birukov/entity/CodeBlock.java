@@ -11,6 +11,6 @@ public class CodeBlock implements PartOfText{
 
     @Override
     public String getContent() {
-        return value;
+        return "<code> "+value+" </code>";
     }
 }

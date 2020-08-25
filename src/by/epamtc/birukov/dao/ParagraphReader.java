@@ -1,5 +1,6 @@
 package by.epamtc.birukov.dao;
 
+import by.epamtc.birukov.entity.CodeBlock;
 import by.epamtc.birukov.entity.Text;
 import by.epamtc.birukov.service.SentenceParser;
 
@@ -11,6 +12,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ParagraphReader {
@@ -46,13 +48,23 @@ public class ParagraphReader {
 
                 }
 
-                if (Pattern.matches("(?:[^\n][\n]?)+", line)){//в result параграф
-
-
+                if (Pattern.matches("(?:[^\n][\n]?)+", line) && isCode == false){//в result параграф
 //todo проверка на КОД
                     text.addComponent(SentenceParser.makeSentencesFromParagr(result));
 
                     result = "";
+                }
+                else if (Pattern.matches("(?:[^\n][\n]?)+", line) && isCode){
+
+//                    countBracket(result);
+                    if (countBracket(result) == 0){
+                        CodeBlock codeBlock = new CodeBlock(result);
+                        text.addComponent(codeBlock);
+                        result = "";
+                        isCode = false;
+                    }
+
+                    result+="\n";
                 }
 
             }
@@ -67,5 +79,27 @@ public class ParagraphReader {
 
         System.out.println(text.getContent());
         return null;
+    }
+
+    public static int countBracket(String code){
+//todo REG
+        Pattern REGEX_INCREMENT = Pattern.compile("\\{");
+        Pattern REGEX_DECREMENT = Pattern.compile("}");
+
+        int count = 0;
+        Matcher increment = REGEX_INCREMENT.matcher(code);
+        Matcher decrement = REGEX_DECREMENT.matcher(code);
+
+
+
+        while (increment.find()){
+            count++;
+        }
+
+        while (decrement.find()){
+            count--;
+        }
+
+        return count;
     }
 }

@@ -1,3 +1,44 @@
-If you could go to Loch Ness tomorrow and prove or disprove conclusively the existence of the monster, would you?
-Should you? When all the questions are answered, when all the superstitions are stilled, when science has unraveled all the mysteries, what will we do?
-Would you want to live in such a time? Would we be able to live then? I fack u?
+Интервьюеру понравится, если вы приведёте пример. Выберите какой-нибудь объект, который может быть общим (базовым) для группы объектов и унаследуйте от него парочку классов.
+
+Базовый класс:
+public class Dancer {
+    private String name;
+    private int age;
+
+    public Dancer(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void dance() {
+        System.out.println(toString() + "Я танцую как все.");
+    }
+
+    @Override
+    public String toString() {
+        return "Я " + name + ", мне " + age + " лет. " ;
+    }
+}
+В наследниках переопределите метод базового класса:
+public class ElectricBoogieDancer extends Dancer {
+    public ElectricBoogieDancer(String name, int age) {
+        super(name, age);
+    }
+// переопределение метода базового класса
+    @Override
+    public void dance() {
+        System.out.println( toString() + "Я танцую электрик буги!");
+    }
+}
+
+public class BreakDankDancer extends Dancer{
+
+    public BreakDankDancer(String name, int age) {
+        super(name, age);
+    }
+// переопределение метода базового класса
+    @Override
+    public void dance(){
+        System.out.println(toString() + "Я танцую брейк-данс!");
+    }
+}
