@@ -14,7 +14,6 @@ public class Sentence implements PartOfText{
     public void removeComponent(PartOfText component){
         VALUES.remove(component);
     }
-    //todo функционал
 
     @Override
     public String getContent() {

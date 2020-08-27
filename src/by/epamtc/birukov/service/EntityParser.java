@@ -24,12 +24,10 @@ public class EntityParser {
             else if(!Pattern.matches("[\\p{Punct}]", a )){
 
                 sen.addComponent(new Word(a));
-                //созд слово
+
             }
         }
 
-       // System.out.println(sen.getContent());
-//        System.out.println(split);
         return sen;
     }
 }

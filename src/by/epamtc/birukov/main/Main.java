@@ -9,10 +9,6 @@ public class Main {
 
     public static void main(String[] args) throws URISyntaxException {
 
-
-//        FileReader.readLine();
-        Text text = new Text();
-
         ParagraphReader paragraphReader = new ParagraphReader();
         paragraphReader.readParagraph();
 

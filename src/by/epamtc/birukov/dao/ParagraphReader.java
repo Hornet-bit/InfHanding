@@ -18,16 +18,15 @@ import java.util.regex.Pattern;
 public class ParagraphReader {
     public String readParagraph() throws URISyntaxException {
 
-        //String path = "src/by/epamtc/birukov/resources/text.txt";
 
         URL resource = ParagraphReader.class.getResource("../resources/text.txt");
-        File normPath = Paths.get(resource.toURI()).toFile();
+        File path = Paths.get(resource.toURI()).toFile();
 
 
         String line = "";
         Text text = new Text();
         try {
-            BufferedReader reader = new BufferedReader(new java.io.FileReader(normPath));
+            BufferedReader reader = new BufferedReader(new java.io.FileReader(path));
             String result = "";
             String REGEX_CODE = "}";
 
@@ -49,7 +48,7 @@ public class ParagraphReader {
                 }
 
                 if (Pattern.matches("(?:[^\n][\n]?)+", line) && isCode == false){//в result параграф
-//todo проверка на КОД
+
                     text.addComponent(SentenceParser.makeSentencesFromParagr(result));
 
                     result = "";
@@ -82,7 +81,7 @@ public class ParagraphReader {
     }
 
     public static int countBracket(String code){
-//todo REG
+
         Pattern REGEX_INCREMENT = Pattern.compile("\\{");
         Pattern REGEX_DECREMENT = Pattern.compile("}");
 
