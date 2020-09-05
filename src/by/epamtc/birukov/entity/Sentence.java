@@ -1,24 +1,25 @@
 package by.epamtc.birukov.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sentence implements PartOfText{
+public class Sentence implements PartOfText, Serializable {
 
-    private final List<PartOfText> VALUES = new ArrayList<>();
+    private final List<PartOfText> values = new ArrayList<>();
 
     public void addComponent(PartOfText component){
-        VALUES.add(component);
+        values.add(component);
     }
 
     public void removeComponent(PartOfText component){
-        VALUES.remove(component);
+        values.remove(component);
     }
 
     @Override
     public String getContent() {
         String result = "";
-        for (PartOfText component: VALUES){
+        for (PartOfText component: values){
             result += component.getContent()+" ";
 
         }

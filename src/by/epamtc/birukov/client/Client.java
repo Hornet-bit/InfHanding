@@ -1,11 +1,14 @@
 package by.epamtc.birukov.client;
 
 import by.epamtc.birukov.dao.ParagraphReader;
+import by.epamtc.birukov.entity.Text;
 
 import java.io.*;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.URL;
+import java.nio.channels.SocketChannel;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -46,11 +49,16 @@ public class Client {
 
 //                byteArray = bis.readNBytes(1024);
                 bos.write(byteArray);
-            }
-            System.out.println(count);
-            bis.close();
-            bos.close();
 
+
+                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
+                    Text text = (Text) ois.readObject();
+                    System.out.println(text.getContent());
+
+                bis.close();
+                bos.close();
+            }
 
         } catch (Exception x) {
             x.printStackTrace();

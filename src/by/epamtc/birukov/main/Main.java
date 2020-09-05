@@ -1,47 +1,23 @@
 package by.epamtc.birukov.main;
 
+import by.epamtc.birukov.controller.Controller;
 import by.epamtc.birukov.dao.ParagraphReader;
 import by.epamtc.birukov.entity.Text;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 
 public class Main {
 
-    public static void main(String[] args) throws URISyntaxException {
+    public static void main(String[] args){
 
-        ParagraphReader paragraphReader = new ParagraphReader();
-        paragraphReader.readParagraph();
-
-
-
-//        //////////////////////////////////////
-//
-//        int port = 9999;
-//        try {
-//            ServerSocket ss = new ServerSocket(port);
-//            System.out.println("Waiting...");
-//
-//            Socket socket = ss.accept();
-//
-//
-//
-//            //  входной и выходной потоки сокета
-//            InputStream sin = socket.getInputStream();
-//            OutputStream sout = socket.getOutputStream();
-//
-//            // Конвертируем потоки в другой тип, чтоб легче обрабатывать текстовые сообщения.
-//            DataInputStream in = new DataInputStream(sin);
-//            DataOutputStream out = new DataOutputStream(sout);
-//
-//            String line = null;
-//            while(true) {
-//                line = in.readUTF(); // ожидаем пока клиент пришлет строку текста.
-//                System.out.println("client send " + line);
-//                out.writeUTF(line);
-//                out.flush(); // заставляем поток закончить передачу данных.
-//                System.out.println();
-//            }
-//        } catch(Exception x) { x.printStackTrace(); }
+        Controller controller = new Controller();
+        controller.startServer();
 
 
     }

@@ -1,6 +1,8 @@
 package by.epamtc.birukov.entity;
 
-public class CodeBlock implements PartOfText{
+import java.io.Serializable;
+
+public class CodeBlock implements PartOfText, Serializable {
 
     String value = null;
 

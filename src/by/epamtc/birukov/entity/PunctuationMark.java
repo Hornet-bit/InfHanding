@@ -1,6 +1,9 @@
 package by.epamtc.birukov.entity;
 
-public class PunctuationMark implements PartOfText {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class PunctuationMark implements PartOfText, Serializable {
 
     private String value;
     private int position;
@@ -21,5 +24,27 @@ public class PunctuationMark implements PartOfText {
 
     public int getPosition(){
         return position;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PunctuationMark that = (PunctuationMark) o;
+        return position == that.position &&
+                Objects.equals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, position);
+    }
+
+    @Override
+    public String toString() {
+        return "PunctuationMark{" +
+                "value='" + value + '\'' +
+                ", position=" + position +
+                '}';
     }
 }

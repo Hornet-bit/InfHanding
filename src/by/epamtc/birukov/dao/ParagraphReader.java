@@ -15,69 +15,61 @@ import java.nio.file.Paths;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ParagraphReader {
-    public String readParagraph() throws URISyntaxException {
+public class ParagraphReader implements TextDAO {
+    public Text readParagraph(String str){
 
 
-        URL resource = ParagraphReader.class.getResource("../resources/text.txt");
-        File path = Paths.get(resource.toURI()).toFile();
+//        URL resource = ParagraphReader.class.getResource("../resources/text.txt");
+//        File path = Paths.get(resource.toURI()).toFile();
 
 
         String line = "";
         Text text = new Text();
-        try {
-            BufferedReader reader = new BufferedReader(new java.io.FileReader(path));
-            String result = "";
-            String REGEX_CODE = "}";
+        //            BufferedReader reader = new BufferedReader(new java.io.FileReader(path));
+        String result = "";
+        String REGEX_CODE = "}";
+
+        String [] arrayOfLines = str.split("\n");
 
 
-            boolean isCode = false;
-            while (true) {
+        boolean isCode = false;
+        for (int i = 0; i < arrayOfLines.length; i++){
 
-                line = reader.readLine();
+            line = arrayOfLines[i];
 
-                if (line == null ){
-                    break;
-                }
-                result+=line;
+//                if (line == null ){
+//                    break;
+//                }
+            result+=line;
 
-                if (line.contains("{")){
+            if (line.contains("{")){
 
-                    isCode = true;
-
-                }
-
-                if (Pattern.matches("(?:[^\n][\n]?)+", line) && isCode == false){//в result параграф
-
-                    text.addComponent(SentenceParser.makeSentencesFromParagr(result));
-
-                    result = "";
-                }
-                else if (Pattern.matches("(?:[^\n][\n]?)+", line) && isCode){
-
-//                    countBracket(result);
-                    if (countBracket(result) == 0){
-                        CodeBlock codeBlock = new CodeBlock(result);
-                        text.addComponent(codeBlock);
-                        result = "";
-                        isCode = false;
-                    }
-
-                    result+="\n";
-                }
+                isCode = true;
 
             }
 
+            if (Pattern.matches("(?:[^\n][\n]?)+", line) && isCode == false){//в result параграф
+
+                text.addComponent(SentenceParser.makeSentencesFromParagr(result));
+
+                result = "";
+            }
+            else if (Pattern.matches("(?:[^\n][\n]?)+", line) && isCode){
+
+//                    countBracket(result);
+                if (countBracket(result) == 0){
+                    CodeBlock codeBlock = new CodeBlock(result);
+                    text.addComponent(codeBlock);
+                    result = "";
+                    isCode = false;
+                }
+
+                result+="\n";
+            }
 
         }
-        catch (IOException e){
-            System.err.println("Error");
-            e.printStackTrace();
-            //log
-        }
 
-        System.out.println(text.getContent());
-        return null;
+        return text;
     }
 
     public static int countBracket(String code){
